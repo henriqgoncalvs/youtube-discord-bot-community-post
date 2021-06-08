@@ -9,7 +9,8 @@ hook.setAvatar(process.env.AVATAR_URL);
 
 const rule = new schedule.RecurrenceRule();
 rule.dayOfWeek = [0, new schedule.Range(0, 6)];
-rule.hour = 11;
+rule.hour = 20;
+rule.minute = 13;
 
 async function createEmbed(src) {
   const embed = new MessageBuilder()
