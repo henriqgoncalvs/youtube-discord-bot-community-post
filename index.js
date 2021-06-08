@@ -34,9 +34,14 @@ const sendMessage = async () => {
     return firstPost.children[0].src;
   });
 
-  const embed = await createEmbed(postSrc);
+  try {
+    const embed = await createEmbed(postSrc);
+    
+    hook.send(embed);
+  } catch (err) {
+    throw new Error(err)
+  }
 
-  hook.send(embed);
 };
 
 // const job = schedule.scheduleJob(rule, sendMessage);
