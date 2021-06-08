@@ -1,16 +1,15 @@
 require('dotenv').config();
 const puppeteer = require('puppeteer');
-// const schedule = require('node-schedule');
+const schedule = require('node-schedule');
 const { Webhook, MessageBuilder } = require('discord-webhook-node');
 
 const hook = new Webhook(process.env.WEBHOOK_URL);
 hook.setUsername('ＰｒｏＳＫＰＯＯＰ');
 hook.setAvatar(process.env.AVATAR_URL);
 
-// const rule = new schedule.RecurrenceRule();
-// rule.dayOfWeek = [0, new schedule.Range(0, 6)];
-// rule.hour = 20;
-// rule.minute = 17;
+const rule = new schedule.RecurrenceRule();
+rule.dayOfWeek = [0, new schedule.Range(0, 6)];
+rule.hour = 16;
 
 async function createEmbed(src) {
   const embed = new MessageBuilder()
@@ -47,5 +46,4 @@ const sendMessage = async () => {
 
 };
 
-// const job = schedule.scheduleJob(rule, sendMessage);
-sendMessage();
+const job = schedule.scheduleJob(rule, sendMessage);
