@@ -9,7 +9,8 @@ hook.setAvatar(process.env.AVATAR_URL);
 
 const rule = new schedule.RecurrenceRule();
 rule.dayOfWeek = [0, new schedule.Range(0, 6)];
-rule.hour = 16;
+rule.hour = [10, 22];
+rule.minute = 11;
 
 async function createEmbed(src) {
   const embed = new MessageBuilder()
@@ -24,11 +25,19 @@ async function createEmbed(src) {
 
 const sendMessage = async () => {
   const browser = await puppeteer.launch({
-    headless: true,
-    args: ['--no-sandbox','--disable-setuid-sandbox']
+    headless: false,
+    args: [
+      '--disable-gpu',
+      '--disable-dev-shm-usage',
+      '--disable-setuid-sandbox',
+      '--no-first-run',
+      '--no-sandbox',
+      '--no-zygote',
+      '--single-process'
+    ]
   });
   const page = await browser.newPage();
-  await page.goto('https://www.youtube.com/c/ProSkillPlay/community');
+  await page.goto('https://www.youtube.com/user/BBoyMikecrash/community');
 
   const postSrc = await page.evaluate(() => {
     const firstPost = document.querySelector('.style-scope .ytd-backstage-image-renderer .no-transition');
@@ -46,4 +55,5 @@ const sendMessage = async () => {
 
 };
 
-const job = schedule.scheduleJob(rule, sendMessage);
+// const job = schedule.scheduleJob(rule, sendMessage);
+sendMessage();
